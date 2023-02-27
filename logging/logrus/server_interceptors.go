@@ -28,6 +28,8 @@ func UnaryServerInterceptor(entry *logrus.Entry, opts ...Option) grpc.UnaryServe
 		startTime := time.Now()
 		newCtx := newLoggerForCall(ctx, entry, info.FullMethod, startTime, o.timestampFormat)
 
+		entry.Infoln("call before handle req")
+
 		resp, err := handler(newCtx, req)
 
 		if !o.shouldLog(info.FullMethod, err) {
