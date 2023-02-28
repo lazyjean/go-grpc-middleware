@@ -4,6 +4,8 @@ require (
 	github.com/go-kit/log v0.1.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.3.3
+	github.com/google/uuid v1.3.0 // indirect
+	github.com/lithammer/shortuuid v3.0.0+incompatible
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.7.0

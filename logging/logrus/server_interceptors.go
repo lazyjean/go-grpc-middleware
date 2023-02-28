@@ -9,6 +9,7 @@ import (
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
+	"github.com/lithammer/shortuuid"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
@@ -28,7 +29,7 @@ func UnaryServerInterceptor(entry *logrus.Entry, opts ...Option) grpc.UnaryServe
 		startTime := time.Now()
 		newCtx := newLoggerForCall(ctx, entry, info.FullMethod, startTime, o.timestampFormat)
 
-		entry.Infoln("call before handle req")
+		entry.Infoln("")
 
 		resp, err := handler(newCtx, req)
 
@@ -88,6 +89,7 @@ func newLoggerForCall(ctx context.Context, entry *logrus.Entry, fullMethodString
 			"grpc.service":    service,
 			"grpc.method":     method,
 			"grpc.start_time": start.Format(timestampFormat),
+			"logId":           shortuuid.New(),
 		})
 
 	if d, ok := ctx.Deadline(); ok {
